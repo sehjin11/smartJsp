@@ -19,7 +19,7 @@
 </servlet-mapping>
 <servlet>
 	<servlet-name>employee</servlet-name>
-	<servlet-class>controller.employee.MainController</servlet-class>
+	<servlet-class>controller.employee.EmployeeController</servlet-class>
 </servlet>
 <servlet-mapping>
 	<servlet-name>employee</servlet-name>
