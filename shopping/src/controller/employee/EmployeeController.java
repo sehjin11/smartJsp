@@ -1,6 +1,7 @@
 package controller.employee;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class EmployeeController extends HttpServlet implements Servlet{
 
-	public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		String requestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String command = requestURI.substring(contextPath.length());
@@ -33,15 +34,47 @@ public class EmployeeController extends HttpServlet implements Servlet{
 			action.empInsert(request);
 			response.sendRedirect("empList.em");
 		}
+		else if(command.equals("/empInfo.em")) {
+			EmployeeInfoPage action = new EmployeeInfoPage();
+			action.empInfo(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/employeeInfo.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(command.equals("/empModify.em")) {
+			EmployeeInfoPage action = new EmployeeInfoPage();
+			action.empInfo(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/employeeModify.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(command.equals("/empModifyOk.em")) {
+			EmployeeModifyPage action = new EmployeeModifyPage();
+			action.empModify(request);
+			response.sendRedirect("empList.em"); //수정 후 돌아가는 페이지
+		}
+		else if(command.equals("/empDelete.em")) {
+			EmployeeDeletePage action = new EmployeeDeletePage();
+			action.empDelete(request);
+			response.sendRedirect("empList.em");
+		}			
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doProcess(req, resp);
+		try {
+			doProcess(req, resp);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doProcess(req, resp);
+		try {
+			doProcess(req, resp);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

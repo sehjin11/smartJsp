@@ -16,7 +16,7 @@ public class EmployeeDAO {
 	static String jdbcUrl;
 	static Connection conn;
 	String sql;
-	PreparedStatement pstmt;//sql¹®À» DB¿¡ Àü´ŞÇÒ¶§ ¾²ÀÓ
+	PreparedStatement pstmt;//sqlï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½
 	Integer result;
 	ResultSet rs;
 	
@@ -25,18 +25,84 @@ public class EmployeeDAO {
 		jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
 	}
 	
-	//oracleDB¿¡ Á¢¼ÓÇÏ´Â ¸Ş¼­µå
+	//oracleDBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½
 	public static void getConnect() {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "gold", "oracle");
+			conn = DriverManager.getConnection(jdbcUrl, "web", "oracle");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	//Á÷¿ø¸®½ºÆ®
+	//ì§ì› ì‚­ì œ ë©”ì„œë“œ
+	public void empDelete(String empId) {
+		sql="delete from employees "+"where employee_id=? ";
+		getConnect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, empId);
+			int i = pstmt.executeUpdate();
+			System.out.println(i+"ê°œê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
+	//ì§ì›ì •ë³´ ìˆ˜ì • ë©”ì„œë“œ
+	public void empUpdate(EmployeeDTO dto) throws SQLException {
+		sql = "update employees "+ "set JOB_ID = ?, PH_NUMBER=?, OFFICE_NUMBER=?,"
+				+ " EMAIL=?, EMP_ADDR=? "+"where employee_id= ?";
+		getConnect();
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, dto.getJobId());
+		pstmt.setString(2, dto.getPhNumber());
+		pstmt.setString(3, dto.getOfficeNumber());
+		pstmt.setString(4, dto.getEmail());
+		pstmt.setString(5, dto.getEmpAddr());
+		pstmt.setString(6, dto.getEmployeeId());
+		int i=pstmt.executeUpdate();
+		System.out.println(i + "ê°œê°€ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
+	}
+	
+	
+	public EmployeeDTO empInfo(String empId) {
+		EmployeeDTO dto = new EmployeeDTO();
+		sql = "select "+COLUMNS+ " from employees "+"where employee_id = ?";
+		getConnect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, empId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setEmployeeId(rs.getString("EMPLOYEE_ID"));
+				dto.setEmpUserid(rs.getString("EMP_USERID"));
+				dto.setEmpPw(rs.getString("EMP_PW"));
+				dto.setEmpName(rs.getString("EMP_NAME"));
+				dto.setHireDate(rs.getString("HIRE_DATE"));
+				dto.setJobId(rs.getString("JOB_ID"));
+				dto.setPhNumber(rs.getString("PH_NUMBER"));
+				dto.setOfficeNumber(rs.getString("OFFICE_NUMBER"));
+				dto.setEmail(rs.getString("EMAIL"));
+				dto.setEmpAddr(rs.getString("EMP_ADDR"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return dto;
+	}
+	
+	
+	
+	
+	
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	public List <EmployeeDTO> getEmpList(){
 		List <EmployeeDTO> list = new ArrayList<EmployeeDTO>();
 		sql="select "+COLUMNS+" from employees";
@@ -101,7 +167,7 @@ public class EmployeeDAO {
 			pstmt.setString(9, dto.getEmail());
 			pstmt.setString(10, dto.getEmpAddr());
 			result = pstmt.executeUpdate();
-			System.out.println(result+"°³ ÇàÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù.");
+			System.out.println(result+"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			
 			
 		} catch (Exception e) {
