@@ -3,8 +3,13 @@ package model.DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.Date;
+
+import model.DTO.EmployeeDTO;
 import model.DTO.MemberDTO;
 
 public class MemberDAO {
@@ -14,6 +19,7 @@ public class MemberDAO {
 	static Connection conn;
 	String sql;
 	PreparedStatement pstmt;
+	ResultSet rs;
 	
 	static {
 		jdbcDriver="oracle.jdbc.driver.OracleDriver";
@@ -28,6 +34,28 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public List <MemberDTO> getMemList(){
+		List <MemberDTO> list = new ArrayList<MemberDTO>();
+		sql="select "+COLUMNS+" from member";
+		getConnect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MemberDTO dto= new MemberDTO();
+				dto.setMemId(rs.getString("EMP_ID"));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	
 	
 	public void memInsert(MemberDTO dto) {
 		sql ="insert into member ("+COLUMNS+") "+"values(?,?,?,?,?,?,?,?,?,?,?,?)";

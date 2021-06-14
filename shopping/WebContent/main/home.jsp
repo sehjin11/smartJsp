@@ -27,6 +27,6 @@
 	<!-- 직원 -->
 	<!-- 관리자 -->
 	<a href="empList.em">직원 리스트</a>
-	<a href="List.em">회원 리스트</a>
+	<a href="memList.mem">회원 리스트</a>
 </body>
 </html>

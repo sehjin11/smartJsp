@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.employee.EmployeeListPage;
+
 
 public class MemberController extends HttpServlet implements Servlet {
 	
@@ -30,6 +32,12 @@ public class MemberController extends HttpServlet implements Servlet {
 			MemberJoinPage action = new MemberJoinPage();
 			action.memInsert(request);
 			response.sendRedirect("main.sj");
+		}
+		else if(command.equals("/memList.mem")) {
+			MemberListPage action = new MemberListPage();
+			action.memList(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("member/memberList.jsp");
+			dispatcher.forward(request, response);
 		}
 	
 	}
