@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +11,11 @@
 <body>
 회원 리스트 페이지입니다.<br />
 <table border=1>
-	<tr><td>사원번호</td><td>이름</td><td>직무</td><td>입사일</td><td>사무실번호</td></tr>
+	<tr><td>아이디</td><td>이름</td><td>연락처</td><td>이메일</td><td>주소</td></tr>
 <c:forEach items="${memList }" var="dto">
-	<tr><td><a href="empInfo.em?empId=${dto.employeeId}">${dto.employeeId}</td><td>${dto.empName}</td><td>${dto.jobId}</td><td>${dto.hireDate}</td><td>${dto.officeNumber}</td></tr>
+	<tr><td><a href="memInfo.mem?memId=${dto.memId }">${dto.memId }</a></td><td>${dto.memName }</td><td>${dto.memPhone}</td><td>${dto.memEmail}</td><td>${dto.memAddress}</td></tr>
 </c:forEach>
+</table>
+<a href="main.sj">홈화면</a>
 </body>
 </html>

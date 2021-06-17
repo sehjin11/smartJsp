@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>Insert title here</title>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -60,55 +61,49 @@
 </script>
 </head>
 <body>
-<form action="memJoin.mem" method="post" name="frm">
-	<input type="hidden" name="dongAddress" id="sample4_extraAddress" placeholder="참고항목">
+<form action="memModifyOk.mem" method="post" name="frm">
+<input type="hidden" name="memId" value="${dto.memId }" />
 <table border=1 align="center">
 	<tr><td>아이디</td>
-	<td><input type="text" name="memId" />
-	</td></tr>
-	<tr><td>비밀번호</td>
-	<td><input type="password" name="memPw" />
-	</td></tr>
-	<tr><td>비밀번호 확인</td>
-	<td><input type="password" name="memPwCon" />
+	<td>${dto.memId }
 	</td></tr>
 	<tr><td>이름</td>
-	<td><input type="text" name="memName" />
+	<td>${dto.memName }
 	</td></tr>
 	<tr><td>연락처</td>
-	<td><input type="text" name="memPhone" placeholder="010-1234-1234"/>
+	<td><input type="text" name="memPhone" value="${dto.memPhone }"/>
 	</td></tr>
 	<tr><td>우편번호</td>
-	<td><input type="text" name="postNumber" id="sample4_postcode" />
+	<td><input type="text" name="postNumber" id="sample4_postcode" value="${dto.postNumber }" />
 	</td></tr>
 	<tr><td>주소</td>
-	<td><input type="text" name="memAddress" id="sample4_roadAddress" size="30">
+	<td><input type="text" name="memAddress" id="sample4_roadAddress" size="30" value="${dto.memAddress }">
 	<a href="javascript:sample4_execDaumPostcode();">주소 검색</a>
 	</td></tr>
 	<tr><td>상세주소</td>
-	<td><input type="text" name="detailAdd" />
+	<td><input type="text" name="detailAdd" value="${dto.detailAdd }" />
 	</td></tr>
 	<tr><td>성별</td>
-	<td><input type="radio" name="memGender" value="M" checked>남자
-		<input type="radio" name="memGender" value="F">여자
+	<td><c:if test="${dto.memGender == 'M'}">남성</c:if>
+		<c:if test="${dto.memGender == 'F'}">여성</c:if>
 	</td></tr>
 	<tr><td>생일</td>
-	<td><input type="date" name="memBirth" value="1988-01-01"/>
+	<td><input type="date" name="memBirth" value="${dto.memBirth }"/>
 	</td></tr>
 	<tr><td>이메일</td>
-	<td><input type="text" name="memEmail" />
+	<td><input type="text" name="memEmail" value="${dto.memEmail }"/>
 	</td></tr>
 	<tr><td>이메일 수신여부</td>
-	<td><input type="radio" name="memEmailCk" value="Y" checked>예
-		<input type="radio" name="memEmailCk" value="N">아니오
+	<td><input type="radio" name="memEmailCk" value="Y" <c:if test="${dto.memEmailCk == 'Y'}">checked</c:if> >예
+		<input type="radio" name="memEmailCk" value="N" <c:if test="${dto.memEmailCk == 'N'}">checked</c:if> >아니오
 	</td></tr>
 	<tr><td>계좌번호</td>
-	<td><input type="text" name="memAccount" />
+	<td><input type="text" name="memAccount" value="${dto.memAccount }"/>
 	</td></tr>
 	<tr><td colspan="2" align="center">
-	<input type="submit" value="가입완료" />
-	<input type="reset" value="초기화" />
-	<input type="button" value="취소" onclick="javascript:location.href='main.sj'" />
+	<input type="submit" value="수정" />
+	<input type="button" value="취소" onclick="javascript:history.back();" />
+	<input type="button" value="회원 삭제" onclick="javascript:location.href='memDel.mem?memId=${dto.memId }'" />
 	</td></tr>
 </table>
 </form>

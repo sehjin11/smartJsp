@@ -36,6 +36,39 @@ public class EmployeeDAO {
 		
 	}
 	
+	//암호변경메서드
+	
+	public void pwChange(String empId, String newPw) {
+		sql="update employees set emp_pw=? where emp_userid=?";
+		getConnect();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, newPw);
+			pstmt.setString(2, empId);
+			int i=pstmt.executeUpdate();
+			System.out.println(i+"개가 수정되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { close(); }
+	}
+	
+	
+	
+	public void empDelete2(String empId) {
+		sql="delete from employees "+"where emp_userid=? ";
+		getConnect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, empId);
+			int i = pstmt.executeUpdate();
+			System.out.println(i+"개가 삭제되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
 	//직원 삭제 메서드
 	public void empDelete(String empId) {
 		sql="delete from employees "+"where employee_id=? ";
@@ -53,6 +86,7 @@ public class EmployeeDAO {
 	}
 	
 	
+	
 	//직원정보 수정 메서드
 	public void empUpdate(EmployeeDTO dto) throws SQLException {
 		sql = "update employees "+ "set JOB_ID = ?, PH_NUMBER=?, OFFICE_NUMBER=?,"
@@ -67,6 +101,34 @@ public class EmployeeDAO {
 		pstmt.setString(6, dto.getEmployeeId());
 		int i=pstmt.executeUpdate();
 		System.out.println(i + "개가 수정되었습니다.");
+	}
+	
+	public EmployeeDTO empDetail(String empId) {
+		EmployeeDTO dto = new EmployeeDTO();
+		sql = "select "+COLUMNS+ " from employees "+"where emp_userid = ?";
+		getConnect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, empId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setEmployeeId(rs.getString("EMPLOYEE_ID"));
+				dto.setEmpUserid(rs.getString("EMP_USERID"));
+				dto.setEmpPw(rs.getString("EMP_PW"));
+				dto.setEmpName(rs.getString("EMP_NAME"));
+				dto.setHireDate(rs.getString("HIRE_DATE"));
+				dto.setJobId(rs.getString("JOB_ID"));
+				dto.setPhNumber(rs.getString("PH_NUMBER"));
+				dto.setOfficeNumber(rs.getString("OFFICE_NUMBER"));
+				dto.setEmail(rs.getString("EMAIL"));
+				dto.setEmpAddr(rs.getString("EMP_ADDR"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return dto;
 	}
 	
 	
@@ -176,6 +238,8 @@ public class EmployeeDAO {
 			close();
 		}
 	}
+	
+	
 	private void close() {
 		if(rs!=null) {
 			try {

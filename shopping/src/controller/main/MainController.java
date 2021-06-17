@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class MainController extends HttpServlet implements Servlet{
 	//메시지를 받을 때
@@ -20,6 +21,20 @@ public class MainController extends HttpServlet implements Servlet{
 			RequestDispatcher dispatcher = request.getRequestDispatcher("main/home.jsp");
 			dispatcher.forward(request, response);
 		}
+		else if(command.equals("/login.sj")) {
+			LoginPage action = new LoginPage();
+			action.login(request);
+			response.sendRedirect("main.sj");
+		}else if(command.equals("/logout.sj")) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("main.sj");
+		}
+		
+		
+		
+		
+		
 	}
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

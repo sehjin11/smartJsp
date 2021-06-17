@@ -55,7 +55,61 @@ public class EmployeeController extends HttpServlet implements Servlet{
 			EmployeeDeletePage action = new EmployeeDeletePage();
 			action.empDelete(request);
 			response.sendRedirect("empList.em");
-		}			
+		}
+		else if(command.equals("/empMyPage.em")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/empMyPage.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(command.equals("/empDetail.em")) {
+			EmployeeDetailPage action = new EmployeeDetailPage();
+			action.empDetail(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/empDetail.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(command.equals("/empSujung.em")) {
+			EmployeeDetailPage action = new EmployeeDetailPage();
+			action.empDetail(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/empSujung.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(command.equals("/empSujungOk.em")) {
+			EmployeeUpdatePage action = new EmployeeUpdatePage();
+			int i = action.empUpdate(request);
+			if(i == 1) {
+				response.sendRedirect("empDetail.em");
+			}else if(i==2 ) {
+				response.sendRedirect("empSujung.em");
+			}
+		}
+		else if(command.equals("/empOut.em")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/empOutPw.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(command.equals("/empOutOk.em")) {
+			EmployeeOutPage action = new EmployeeOutPage();
+			
+			int i = action.empOut(request);
+			if(i==1) {
+				response.sendRedirect("main.sj");
+			}
+			else {
+				response.sendRedirect("empOut.em");
+			}
+		}
+		else if(command.equals("/empPwChange.em")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee/empPwChange.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(command.equals("/ChangePw.em")) {
+			EmployeePwChangePage action = new EmployeePwChangePage();
+			int i = action.pwChange(request);
+			if(i==1) {
+				response.sendRedirect("empMyPage.em");
+			}else {
+				RequestDispatcher dispatcher=request.getRequestDispatcher("employee/empPwChange.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
 	}
 	
 	@Override
@@ -63,7 +117,6 @@ public class EmployeeController extends HttpServlet implements Servlet{
 		try {
 			doProcess(req, resp);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -72,8 +125,7 @@ public class EmployeeController extends HttpServlet implements Servlet{
 		try {
 			doProcess(req, resp);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+ 			e.printStackTrace();
 		}
 	}
 	
