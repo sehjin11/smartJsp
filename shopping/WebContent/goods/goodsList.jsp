@@ -18,5 +18,6 @@
 </table>
 
 <a href="goodsRegist.gd">상품등록</a>
+<a href="main.sj">홈으로</a>
 </body>
 </html>

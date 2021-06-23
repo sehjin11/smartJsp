@@ -42,7 +42,7 @@
 	<tr><th colspan="2">
 		<input type="submit" value="상품등록"/>
 		<input type="reset" value="초기화" />
-		<input type="button" value="홈으로" onclick="javascript:location.href='main.sj'"/>
+		<input type="button" value="뒤로" onclick="javascript:history.back();"/>
 		</th></tr>
 </table>
 </form>

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controller.goods.GoodsListPage;
+
 public class MainController extends HttpServlet implements Servlet{
 	//메시지를 받을 때
 	
@@ -18,6 +20,8 @@ public class MainController extends HttpServlet implements Servlet{
 		String contextPath = request.getContextPath();
 		String command = requestURI.substring(contextPath.length());
 		if(command.equals("/main.sj")) {
+			GoodsListPage action = new GoodsListPage();
+			action.goodsList(request);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("main/home.jsp");
 			dispatcher.forward(request, response);
 		}

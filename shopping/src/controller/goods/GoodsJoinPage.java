@@ -28,7 +28,9 @@ public class GoodsJoinPage {
 		String storeFileName3;
 		String images="";
 		try {
+			//MultipartRequest : 선언과 동시에 파일이 저장된다
 			multi=new MultipartRequest(request, realPath, fileSize, "utf-8", new DefaultFileRenamePolicy());
+			//저장된 파일명
 			storeFileName1=multi.getFilesystemName("prodImage1");
 			storeFileName2=multi.getFilesystemName("prodImage2");
 			storeFileName3=multi.getFilesystemName("prodImage3");

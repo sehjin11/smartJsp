@@ -37,7 +37,7 @@
 		</td></tr>
 	<tr><th colspan="2">
 		<input type="submit" value="수정"/>
-		<input type="button" value="삭제" />
+		<input type="button" value="삭제" onclick="javascript:location.href='prodDel.gd?prodNum=${dto.prodNum }'"/>
 		<input type="button" value="취소" onclick="javascript:history.back();"/>
 		</th></tr>
 </table>
