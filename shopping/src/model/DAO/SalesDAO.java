@@ -81,7 +81,7 @@ public class SalesDAO extends DataBaseInfo{
 	
 	public List<CustomerTotalDTO> customerTotal(){
 		List<CustomerTotalDTO> list = new ArrayList<CustomerTotalDTO>();
-		sql="select m.mem_id, mem_name, sum(pu.purchase_tot_price), count(*) , avg(purchase_tot_price) " + 
+		sql="select m.mem_id, mem_name, sum(purchase_tot_price), count(*) , avg(purchase_tot_price) " + 
 				" from member m, purchase pu " + 
 				" where m.mem_id=pu.mem_id " + 
 				" group by m.mem_id, m.mem_name";
@@ -113,7 +113,7 @@ public class SalesDAO extends DataBaseInfo{
 				"        purchase_date, purchase_addr, receiver_name, receiver_phone, " + 
 				"        purchase_qty, purchase_price, delivery_num " + 
 				"        from member m, products pr, purchase pu, purchase_list pl, delivery d " + 
-				"        where m.mem_id=pu.mem_id and pu.purchase_num=pl.purchase_num and pl.prod_num=pr.prod_num "
+				"        where m.mem_id(+)=pu.mem_id and pu.purchase_num=pl.purchase_num and pl.prod_num=pr.prod_num "
 						+ " and pu.purchase_num = d.purchase_num(+)";
 		if(memId!=null) {
 			sql +=" and m.mem_id=?";

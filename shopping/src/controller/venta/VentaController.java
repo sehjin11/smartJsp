@@ -43,7 +43,7 @@ public class VentaController extends HttpServlet implements Servlet{
 		else if(command.equals("/deliveryOk.vnt")) {
 			DeliveryOkPage action = new DeliveryOkPage();
 			action.execute(request);
-			response.sendRedirect("");
+			response.sendRedirect("venta.vnt");
 		}
 	}
 	
