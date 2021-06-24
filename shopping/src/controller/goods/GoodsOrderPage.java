@@ -21,6 +21,7 @@ public class GoodsOrderPage {
 		HttpSession session = request.getSession();
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		String memId=authInfo.getUserId();
+		System.out.println(memId);
 		Date day = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		String purchaseNum=df.format(day);

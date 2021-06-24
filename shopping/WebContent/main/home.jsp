@@ -47,6 +47,7 @@
 	<a href="goodsList.gd">상품 등록</a>
 	<a href="empList.em">직원 리스트</a>
 	<a href="memList.mem">회원 리스트</a>
+	<a href="venta.vnt">판매현황</a>
 	<a href="logout.sj">로그아웃</a>
 </c:if>
 </c:if>

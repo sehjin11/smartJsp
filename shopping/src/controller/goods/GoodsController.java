@@ -130,8 +130,7 @@ public class GoodsController extends HttpServlet implements Servlet{
 					new GoodsReviewWritePage();
 			action.reviewUpdate(request);
 			response.sendRedirect("orderConfirm.gd");
-		}
-		
+		}		
 		
 	}
 		

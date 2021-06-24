@@ -189,7 +189,8 @@ public class GoodsDAO extends DataBaseInfo{
 	
 	
 	public void purchaseListInsert(String purchaseNum, String prodNum, String memId) {
-		sql = "insert into purchase_list (PURCHASE_NUM, PROD_NUM, PURCHASE_QTY, PURCHASE_PRICE) SELECT ?, PROD_NUM, CART_QTY, CART_PRICE from cart where PROD_NUM=? AND mem_id = ?";
+		sql = "insert into purchase_list (PURCHASE_NUM, PROD_NUM, PURCHASE_QTY, PURCHASE_PRICE) "
+			+ "SELECT ?, PROD_NUM, CART_QTY, CART_PRICE  from cart where PROD_NUM=? AND mem_id = ?";
 		getConnect();
 		try {
 			pstmt=conn.prepareStatement(sql);
